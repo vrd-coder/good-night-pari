@@ -4,76 +4,76 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Good Night Pari 🌙</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      background: radial-gradient(circle at top, #1e3c72, #2a5298);
+      font-family: 'Indie Flower', cursive;
       color: white;
       height: 100vh;
-      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      text-align: center;
+      overflow: hidden;
+    }
+
+    .moon {
+      width: 80px;
+      height: 80px;
+      background: #fefcd7;
+      border-radius: 50%;
+      box-shadow: 0 0 30px 10px #fffdd0;
+      position: absolute;
+      top: 40px;
+      right: 40px;
     }
 
     .stars {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: url('https://i.gifer.com/7plQ.gif') repeat;
-      background-size: cover;
+      background-image: radial-gradient(white 1px, transparent 1px);
+      background-size: 20px 20px;
       opacity: 0.2;
       z-index: 0;
-    }
-
-    .moon {
-      position: absolute;
-      top: 60px;
-      right: 60px;
-      width: 80px;
-      height: 80px;
-      background: #fffacd;
-      border-radius: 50%;
-      box-shadow: 0 0 40px 10px #fffacd;
-      z-index: 1;
     }
 
     .container {
       position: relative;
       z-index: 2;
-      padding: 30px;
+      padding: 20px;
+      text-align: center;
       max-width: 90%;
     }
 
     h1 {
-      font-size: 2.2rem;
+      font-size: 2rem;
       margin-bottom: 1rem;
-      font-weight: 400;
     }
 
     .typed-text {
-      font-size: 1.2rem;
-      min-height: 100px;
+      font-size: 1.3rem;
       white-space: pre-wrap;
+      min-height: 120px;
       line-height: 1.8;
-      color: #e0e0e0;
+    }
+
+    .note {
+      margin-top: 30px;
+      font-size: 1.1rem;
+      color: #f0f0f0;
+      opacity: 0.95;
     }
 
     .footer {
       position: absolute;
-      bottom: 20px;
-      font-size: 0.9rem;
-      color: #aaa;
-      z-index: 2;
+      bottom: 15px;
+      font-size: 0.95rem;
+      color: #ddd;
+      opacity: 0.8;
     }
   </style>
 </head>
@@ -82,43 +82,49 @@
   <div class="moon"></div>
 
   <div class="container">
-    <h1>Good Night, Pari 🌙</h1>
+    <h1>good night, pari 🌙</h1>
     <div class="typed-text" id="typed"></div>
+
+    <div class="note">
+      just wanted to remind you<br>
+      that you're the calm in my chaos,<br>
+      the peace in my nights,<br>
+      and my favourite human.<br><br>
+      sleep peacefully, love 💗
+    </div>
   </div>
 
-  <div class="footer">crafted with calm love by your vrd 🕊️</div>
+  <div class="footer">from your future husband 💍</div>
 
   <script>
-    const messages = [
-      "Hi Pari, it's late already 🌙",
-      "I hope today made you smile at least once 💫",
-      "Remember you mean so much to me ❤️",
-      "I wish I could hug you right now...",
-      "But for now, I just hope you sleep well 🤍",
-      "Good night, my moonlight 🌙"
+    const lines = [
+      "it's late now, and i hope your day was kind to you 🤍",
+      "you deserve all the love and peace in the world",
+      "close your eyes, rest your mind, and dream soft things",
+      "i love you. more than words ever say.",
+      "good night pari, my moon, my calm 🌙"
     ];
 
-    let i = 0, j = 0, isDeleting = false, currentText = '';
+    let i = 0, j = 0, isDeleting = false;
 
     function type() {
-      if (i < messages.length) {
-        if (!isDeleting && j <= messages[i].length) {
-          currentText = messages[i].substring(0, j++);
-          document.getElementById("typed").innerText = currentText;
-          setTimeout(type, 50);
-        } else if (isDeleting && j > 0) {
-          currentText = messages[i].substring(0, j--);
-          document.getElementById("typed").innerText = currentText;
-          setTimeout(type, 25);
+      const currentLine = lines[i];
+      if (!isDeleting && j <= currentLine.length) {
+        document.getElementById("typed").innerText = currentLine.substring(0, j++);
+        setTimeout(type, 60);
+      } else if (isDeleting && j > 0) {
+        document.getElementById("typed").innerText = currentLine.substring(0, j--);
+        setTimeout(type, 30);
+      } else {
+        if (!isDeleting) {
+          isDeleting = true;
+          setTimeout(type, 1500);
         } else {
-          if (!isDeleting) {
-            isDeleting = true;
-            setTimeout(type, 1200);
-          } else {
-            isDeleting = false;
-            i++;
-            j = 0;
-            setTimeout(type, 400);
+          isDeleting = false;
+          i++;
+          j = 0;
+          if (i < lines.length) {
+            setTimeout(type, 600);
           }
         }
       }
