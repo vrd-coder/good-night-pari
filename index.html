@@ -2,59 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Good Night Pari 🌙</title>
-  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Good Night Pari</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: radial-gradient(circle at top, #1e3c72, #2a5298);
-      font-family: 'Indie Flower', cursive;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      font-family: 'Inter', sans-serif;
       color: white;
       height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .moon {
-      width: 80px;
-      height: 80px;
-      background: #fefcd7;
-      border-radius: 50%;
-      box-shadow: 0 0 30px 10px #fffdd0;
-      position: absolute;
-      top: 40px;
-      right: 40px;
-    }
-
-    .container {
-      position: relative;
-      z-index: 2;
-      padding: 20px;
       text-align: center;
-      max-width: 90%;
+      overflow: hidden;
     }
 
     h1 {
       font-size: 2rem;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
+      font-weight: 600;
     }
 
     .typed-text {
-      font-size: 1.3rem;
-      white-space: pre-wrap;
-      min-height: 120px;
+      font-size: 1.2rem;
+      max-width: 80%;
+      min-height: 100px;
       line-height: 1.8;
+      white-space: pre-wrap;
+      display: none;
     }
 
     .note {
       margin-top: 30px;
-      font-size: 1.1rem;
-      color: #f0f0f0;
+      font-size: 1rem;
+      color: #e0e0e0;
       opacity: 0;
       transition: opacity 2s ease;
     }
@@ -66,83 +51,87 @@
     .footer {
       position: absolute;
       bottom: 20px;
-      text-align: center;
-      font-size: 1rem;
-      color: #ddd;
+      font-size: 0.95rem;
+      color: #ccc;
       opacity: 0.8;
-      line-height: 1.5;
+      display: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #ffffff15;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #ffffff30;
     }
   </style>
 </head>
 <body>
-  <div class="moon"></div>
+  <h1>Good Night, Pari 🌙</h1>
 
-  <div class="container">
-    <h1>good night, pari 🌙</h1>
-    <div class="typed-text" id="typed"></div>
+  <button id="startBtn">open note</button>
 
-    <div class="note" id="note">
-      just wanted to remind you<br>
-      that you're the calm in my chaos,<br>
-      the peace in my nights,<br>
-      and my favourite human.<br><br>
-      sleep peacefully, love 💗
-    </div>
+  <div class="typed-text" id="typed"></div>
+
+  <div class="note" id="note">
+    just a quiet reminder that you're my calm, my peace, and my favourite person.<br>
+    sleep well, my love. the stars are watching over you tonight 💫
   </div>
 
-  <div class="footer">
-    from your future husband 💍<br>
-    - varad 🤍
-  </div>
+  <div class="footer" id="footer">from your future husband 💍<br>- varad 🤍</div>
 
   <script>
     const lines = [
-      "it's late now, and i hope your day was kind to you 🤍",
-      "you deserve all the love and peace in the world",
-      "close your eyes, rest your mind, and dream soft things",
-      "i love you. more than words ever say.",
-      "good night pari, my moon, my calm 🌙"
+      "the day ends, and all i hope is that you’re resting with a smile 😊",
+      "life may be messy, but i’ll always be your peace",
+      "no matter how far, you’re always close to my heart 💗",
+      "i love you beyond words, beyond time, beyond all things.",
+      "good night, pari. dream gently 🌙"
     ];
 
     let i = 0, j = 0, isDeleting = false;
-    let currentLine = '';
     let finished = false;
 
-    function type() {
-      if (finished) return;
+    document.getElementById("startBtn").addEventListener("click", () => {
+      document.getElementById("startBtn").style.display = "none";
+      document.getElementById("typed").style.display = "block";
+      type();
+    });
 
-      currentLine = lines[i];
+    function type() {
+      const typed = document.getElementById("typed");
+      const currentLine = lines[i];
 
       if (!isDeleting && j <= currentLine.length) {
-        document.getElementById("typed").innerText = currentLine.substring(0, j++);
-        setTimeout(type, 60);
-      } else {
-        if (i === lines.length - 1) {
-          // Last line done, stop typing and show note
-          finished = true;
-          document.getElementById("typed").innerText = currentLine;
-          const note = document.getElementById("note");
-          note.classList.add("visible");
-          return;
-        }
-
-        isDeleting = true;
+        typed.innerText = currentLine.substring(0, j++);
+        setTimeout(type, 55);
+      } else if (i === lines.length - 1) {
+        finished = true;
+        document.getElementById("note").classList.add("visible");
+        document.getElementById("footer").style.display = "block";
+        return;
+      } else if (j === currentLine.length) {
         setTimeout(() => {
-          if (j > 0) {
-            j--;
-            document.getElementById("typed").innerText = currentLine.substring(0, j);
-            type();
-          } else {
-            isDeleting = false;
-            i++;
-            j = 0;
-            setTimeout(type, 600);
-          }
-        }, 30);
+          isDeleting = true;
+          type();
+        }, 1000);
+      } else if (isDeleting && j > 0) {
+        typed.innerText = currentLine.substring(0, --j);
+        setTimeout(type, 30);
+      } else {
+        isDeleting = false;
+        i++;
+        j = 0;
+        setTimeout(type, 500);
       }
     }
-
-    window.onload = type;
   </script>
 </body>
 </html>
